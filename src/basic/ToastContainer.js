@@ -68,7 +68,7 @@ class ToastContainer extends Component {
     if (config.duration !== 0) {
       const duration = (config.duration > 0) ? config.duration : 1500;
       this.closeTimeout = setTimeout(this.closeToast.bind(this, 'timeout'), duration);
-    }  
+    }
     // Fade the toast in now.
     Animated.timing(this.state.fadeAnim, {
       toValue: 1,
@@ -94,7 +94,7 @@ class ToastContainer extends Component {
   render() {
     if (this.state.modalVisible) {
       return (
-        <Animated.View style={this.getToastStyle()}>
+        <Animated.View style={[this.getToastStyle(), this.props.style]}>
           <Toast
             style={this.state.style}
             danger={this.state.type == "danger" ? true : false}
