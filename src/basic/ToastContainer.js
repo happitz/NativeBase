@@ -55,6 +55,7 @@ class ToastContainer extends Component {
       position: config.position ? config.position : "bottom",
       supportedOrientations: config.supportedOrientations,
       style: config.style,
+      buttonIcon: config.buttonIcon,
       buttonTextStyle: config.buttonTextStyle,
       buttonStyle: config.buttonStyle,
       textStyle: config.textStyle,
@@ -93,6 +94,8 @@ class ToastContainer extends Component {
   }
   render() {
     if (this.state.modalVisible) {
+      const hasButton = this.state.buttonText || this.state.buttonIcon;
+
       return (
         <Animated.View style={[this.getToastStyle(), this.props.style]}>
           <Toast
@@ -102,14 +105,17 @@ class ToastContainer extends Component {
             warning={this.state.type == "warning" ? true : false}
           >
             <Text style={this.state.textStyle}>{this.state.text}</Text>
-            {this.state.buttonText && (
+            {hasButton && (
               <Button
                 style={this.state.buttonStyle}
                 onPress={() => this.closeToast('user')}
               >
-                <Text style={this.state.buttonTextStyle}>
-                  {this.state.buttonText}
-                </Text>
+                {this.state.buttonIcon}
+                {this.state.buttonText && (
+                  <Text style={this.state.buttonTextStyle}>
+                    {this.state.buttonText}
+                  </Text>
+                )}
               </Button>
             )}
           </Toast>
