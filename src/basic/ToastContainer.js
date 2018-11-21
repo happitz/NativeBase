@@ -20,6 +20,11 @@ class ToastContainer extends Component {
   static show({ ...config }) {
     this.toastInstance._root.showToast({ config });
   }
+  static hide() {
+    if (this.toastInstance._root.getModalState()) {
+      this.toastInstance._root.closeToast("functionCall");
+    }
+  }
   getToastStyle() {
     return {
       position: "absolute",
@@ -45,6 +50,9 @@ class ToastContainer extends Component {
       } else return buttonText;
     }
     return undefined;
+  }
+  getModalState() {
+    return this.state.modalVisible;
   }
   showToast({ config }) {
     this.setState({
@@ -81,7 +89,7 @@ class ToastContainer extends Component {
       modalVisible: false
     });
     const { onClose } = this.state;
-    if(onClose && typeof onClose === "function") {
+    if (onClose && typeof onClose === "function") {
       onClose(reason);
     }
   }
